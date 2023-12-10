@@ -1,7 +1,13 @@
-
+<!-- Loader in-line styling -->
+<!-- Plus button bg & color styling -->
+<!-- plusbox container color & styling-->
+<!--  -->
 <template>
     <div>
-        <div class="mu-container" :class="isInvalid?'mu-red-border':''">
+        <div class="mu-container" :class="[
+                {isInvalid?'mu-red-border':''}, 
+                {containerBgColor?containerBgColor:'bg-transparent'}
+                ] ">
             <Loader
                 color="#0275d8" 
                 :active="isLoading" 
@@ -83,7 +89,7 @@
 </template>
 
 <script>
-    import Loader from './loader/index.vue';
+    import Loader from './loader/index-tailwind.vue';
     import axios from 'axios'
 
     export default {
@@ -219,7 +225,7 @@
 <style scoped>
 
 .mu-container{
-    background-color: #fbfbfb !important;
+    /* background-color: #fbfbfb !important; */
     border-radius: 5px !important;
     border-style: solid !important;
     border: 1px solid #9b9b9b !important;
