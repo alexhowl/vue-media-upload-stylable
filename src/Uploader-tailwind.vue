@@ -4,10 +4,12 @@
 <!--  -->
 <template>
     <div>
-        <div class="mu-container" :class="[
-                {isInvalid?'mu-red-border':''}, 
-                {containerBgColor?containerBgColor:'bg-transparent'}
-                ] ">
+        <div class="mu-container" :class="
+                {'mu-red-border':isInvalid,
+                [containerBgColor]: true,
+                [containerBorder]: true,
+                [containerRounded]: true,
+                }">
             <Loader
                 color="#0275d8" 
                 :active="isLoading" 
@@ -17,10 +19,16 @@
             <div class="mu-elements-wraper">
                 
                 <!--UPLOAD BUTTON-->
-                <div class="mu-plusbox-container">
+                <div class="mu-plusbox-container" 
+                    :class="{
+                        [plusBoxBgColor]: true,[plusIconBgHover]:true}">
                     <label for="mu-file-input" class="mu-plusbox">
                         <svg
                             class="mu-plus-icon"
+                            :class="{
+                                [plusIconColor]:true,
+                               
+                                }"
                             xmlns="http://www.w3.org/2000/svg" 
                             width="1em" 
                             height="1em" 
@@ -89,7 +97,7 @@
 </template>
 
 <script>
-    import Loader from './loader/index-tailwind.vue';
+    import Loader from './loader/index.vue';
     import axios from 'axios'
 
     export default {
@@ -122,6 +130,36 @@
             warnings:{
                 type: Boolean,
                 default: true
+            },
+            containerBgColor:{
+                type: String,
+                required: false,
+                default: 'bg-tranparent'
+            },
+            containerBorder:{
+                type: String,
+                required: false,
+                default: 'border-0'
+            },
+            containerRounded:{
+                type: String,
+                required: false,
+                default: 'rounded-md'
+            },
+            plusIconColor:{
+                type: String,
+                required: false,
+                default: 'text-white'
+            },
+            plusIconBgHover:{
+                type: String,
+                required: false,
+                default: 'bg-gray-300'
+            },
+            plusBoxBgColor:{
+                type: String,
+                required: false,
+                default: 'bg-transparent'
             }
         },
         mounted() {
@@ -226,9 +264,6 @@
 
 .mu-container{
     /* background-color: #fbfbfb !important; */
-    border-radius: 5px !important;
-    border-style: solid !important;
-    border: 1px solid #9b9b9b !important;
     box-sizing: border-box !important;
     width: 100% !important;
     height: auto !important;
@@ -251,8 +286,6 @@
     margin: 0.25rem !important;
 }
 .mu-plusbox {
-    background-color: #ffffff !important;
-    border: 1px dashed #818181 !important;
     border-radius: 5px !important;
     cursor: pointer !important;
     display: flex !important;
@@ -261,14 +294,7 @@
     width: 140px !important;
     height: 90px !important;
 }
-.mu-plusbox:hover{
-    background-color: #f1f1f1 !important;
-}
-.mu-plusbox:hover > .mu-plus-icon{
-    color: #028296 !important;
-}
 .mu-plus-icon{
-    color: #00afca !important;
     font-size: 3rem !important;
     flex: 1;
 }
